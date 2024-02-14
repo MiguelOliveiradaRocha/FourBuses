@@ -13,6 +13,8 @@ using namespace mjbots;
 
 int main() {
     canbus CanBus;
+
+    // initialisation du can pour les modules canable
     system("sudo modprobe can_raw");
     system("sudo modprobe can-dev");
     system("sudo slcand -o -c -s8 /dev/canable0 can0");
@@ -46,6 +48,8 @@ int main() {
     addr.can_ifindex = ifr.ifr_ifindex;
     bind(socket1, (struct sockaddr *)&addr, sizeof(addr));
 
+
+    // initialisation du can pour les fdcanusbs
     auto transport1 = std::make_shared<moteus::Fdcanusb>("/dev/serial/by-id/usb-mjbots_fdcanusb_B4CCDA38-if00"); // jaune 
     auto transport2 = std::make_shared<moteus::Fdcanusb>("/dev/serial/by-id/usb-mjbots_fdcanusb_ECE784D0-if00"); // gris
 
